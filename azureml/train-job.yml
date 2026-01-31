@@ -1,12 +1,13 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 
-command: |
-  pip install scikit-learn &&
+command: >
   python src/train.py
 
 code: ..
 
 environment:
+  conda_file: azureml/env.yml
   image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
 
 compute: azureml:cpu-cluster
+

@@ -1,25 +1,10 @@
-name: Azure ML CI Pipeline
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  train:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Login to Azure
-      uses: azure/login@v2
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
     - name: Trigger Azure ML job
       uses: azure/CLI@v2
       with:
         inlineScript: |
-          az extension add -n ml
+          az extension add -n ml --yes
+          az configure --defaults \
+            group=shivamrane2005-rg \
+            workspace=Shivam
           az ml job create --file azureml/train-job.yml
+

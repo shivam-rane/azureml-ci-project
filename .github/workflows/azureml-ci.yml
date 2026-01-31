@@ -1,14 +1,34 @@
-    - name: Trigger Azure ML job
-      uses: azure/CLI@v2
-      with:
-        azcliversion: latest
-        inlineScript: |
-          az extension remove -n ml || true
-          az extension add -n ml --yes
+name: Azure ML CI Pipeline
 
-          az ml job create \
-            --file azureml/train-job.yml \
-            --resource-group shivamrane2005-rg \
-            --workspace-name Shivam \
-            --subscription dbe84e75-3f7d-4edb-8a29-752c61c510ef
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Trigger Azure ML job
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az extension remove -n ml || true
+            az extension add -n ml --yes
+
+            az ml job create \
+              --file azureml/train-job.yml \
+              --resource-group shivamrane2005-rg \
+              --workspace-name Shivam \
+              --subscription dbe84e75-3f7d-4edb-8a29-752c61c510ef
 

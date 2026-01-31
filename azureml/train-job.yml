@@ -6,7 +6,6 @@ command: >
 code: .
 
 environment:
-  conda_file: azureml/env.yml
   image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
 
 compute: azureml:cpu-cluster

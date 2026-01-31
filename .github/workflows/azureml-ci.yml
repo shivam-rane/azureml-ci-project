@@ -1,10 +1,14 @@
     - name: Trigger Azure ML job
       uses: azure/CLI@v2
       with:
+        azcliversion: latest
         inlineScript: |
+          az extension remove -n ml || true
           az extension add -n ml --yes
-          az configure --defaults \
-            group=shivamrane2005-rg \
-            workspace=Shivam
-          az ml job create --file azureml/train-job.yml
+
+          az ml job create \
+            --file azureml/train-job.yml \
+            --resource-group shivamrane2005-rg \
+            --workspace-name Shivam \
+            --subscription dbe84e75-3f7d-4edb-8a29-752c61c510ef
 

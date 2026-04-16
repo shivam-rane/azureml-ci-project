@@ -1,15 +1,11 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 
 command: python src/train.py
-code: ..
+
+code: .
 
 environment:
   image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
-  conda_file: |
-    name: train-env
-    dependencies:
-      - python=3.8
-      - pip:
-          - scikit-learn
+  conda_file: azureml/environment.yml   # ✅ FIXED
 
 compute: azureml:cpu-cluster

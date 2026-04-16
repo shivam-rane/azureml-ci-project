@@ -5,11 +5,4 @@ X, y = load_iris(return_X_y=True)
 model = RandomForestClassifier()
 model.fit(X, y)
 
-print("Training completed successfully")
-
-Ctrl + X
-
-x
-^x
-y
-
+print("Model training completed successfully")
